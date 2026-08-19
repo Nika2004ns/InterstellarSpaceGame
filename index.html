@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="NIKAS Interstellar Space Quest - Space and Astronomy Quiz"
+    >
+
+    <title>
+        NIKAS | Interstellar Space Quest
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         CINEMATIC SPACE BACKGROUND
+         ===================================================== -->
+
+    <canvas id="spaceCanvas"></canvas>
+
+
+    <!-- REAL NASA / SPACE IMAGERY -->
+
+    <div class="real-space-layer">
+
+        <!-- NASA / ESA / CSA / STScI JWST Carina Nebula -->
+        <div class="space-image nebula-image"></div>
+
+        <!-- NASA Earth -->
+        <div class="space-image earth-image"></div>
+
+        <!-- Deep-space image -->
+        <div class="space-image galaxy-image"></div>
+
+        <!-- Saturn -->
+        <div class="space-image saturn-image"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CINEMATIC BLACK HOLE
+         ===================================================== -->
+
+    <div class="cinematic-blackhole">
+
+        <div class="blackhole-glow"></div>
+
+        <div class="blackhole-ring"></div>
+
+        <div class="blackhole-core"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         WORMHOLE
+         ===================================================== -->
+
+    <div class="wormhole">
+
+        <div class="wormhole-ring ring-1"></div>
+
+        <div class="wormhole-ring ring-2"></div>
+
+        <div class="wormhole-ring ring-3"></div>
+
+    </div>
+
+
+    <!-- ATMOSPHERE -->
+
+    <div class="nebula nebula-1"></div>
+
+    <div class="nebula nebula-2"></div>
+
+    <div class="nebula nebula-3"></div>
+
+    <div class="sun-glow"></div>
+
+    <div class="vignette"></div>
+
+    <div class="grain"></div>
+
+
+    <!-- IMAGE CREDIT -->
+
+    <div class="photo-credit">
+
+        Space imagery:
+        NASA / ESA / CSA / STScI /
+        NASA-JPL-Caltech /
+        Space Science Institute
+
+    </div>
+
+
+    <!-- =====================================================
+         GAME
+         ===================================================== -->
+
+    <main class="game">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header class="header">
+
+            <div class="logo">
+
+                NIKAS
+
+                <span>
+                    INTERSTELLAR SPACE QUEST
+                </span>
+
+            </div>
+
+
+            <div class="mission">
+
+                MISSION
+
+                <b id="missionNo">
+                    01
+                </b>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             START SCREEN
+             ================================================= -->
+
+        <section
+            id="startScreen"
+            class="screen active"
+        >
+
+            <div class="start-box">
+
+                <div class="space-icon">
+                    🚀
+                </div>
+
+
+                <p class="eyebrow">
+
+                    HUMANITY'S FINAL
+                    KNOWLEDGE MISSION
+
+                </p>
+
+
+                <h1>
+
+                    INTERSTELLAR
+
+                    <span>
+                        SPACE QUEST
+                    </span>
+
+                </h1>
+
+
+                <p class="intro">
+
+                    Earth is running out of time.
+
+                    Humanity needs a new home.
+
+                    You are the Captain of an
+                    interstellar mission.
+
+                    Test your knowledge of Earth,
+                    planets, astronomy, black holes
+                    and the universe.
+
+                </p>
+
+
+                <div class="mission-info">
+
+                    <div>
+                        🌍
+                        <span>EARTH</span>
+                    </div>
+
+                    <div>
+                        🪐
+                        <span>SPACE</span>
+                    </div>
+
+                    <div>
+                        🕳️
+                        <span>BLACK HOLES</span>
+                    </div>
+
+                    <div>
+                        🌀
+                        <span>INTERSTELLAR</span>
+                    </div>
+
+                </div>
+
+
+                <input
+                    type="text"
+                    id="playerName"
+                    placeholder="ENTER CAPTAIN NAME"
+                    maxlength="20"
+                    autocomplete="off"
+                >
+
+
+                <button
+                    class="main-button"
+                    onclick="startGame()"
+                >
+
+                    BEGIN MISSION
+
+                    <span>
+                        🚀
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUIZ SCREEN
+             ================================================= -->
+
+        <section
+            id="quizScreen"
+            class="screen"
+        >
+
+
+            <!-- TOP INFORMATION -->
+
+            <div class="quiz-top">
+
+                <div>
+
+                    <p
+                        class="category"
+                        id="category"
+                    >
+                        EARTH
+                    </p>
+
+
+                    <h2 id="questionNumber">
+
+                        QUESTION 01
+
+                    </h2>
+
+                </div>
+
+
+                <div class="stats">
+
+
+                    <div class="stat">
+
+                        <span>
+                            SCORE
+                        </span>
+
+                        <strong id="score">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span>
+                            LIVES
+                        </span>
+
+                        <strong id="lives">
+                            ❤️❤️❤️
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat timer-stat">
+
+                        <span>
+                            TIME
+                        </span>
+
+                        <strong id="timer">
+                            15
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-container">
+
+                <div id="progressBar"></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SPACECRAFT JOURNEY
+                 ================================================= -->
+
+            <div class="space">
+
+
+                <div class="space-stars"></div>
+
+
+                <!-- EARTH -->
+
+                <div
+                    class="earth"
+                    id="earth"
+                >
+
+                    <div class="earth-globe"></div>
+
+                    <div class="globe-shading"></div>
+
+                    <div class="moon-orbit">
+
+                        <div class="moon"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SPACECRAFT -->
+
+                <div
+                    class="ship"
+                    id="ship"
+                >
+
+                    <div class="ship-trail"></div>
+
+                    <span class="ship-icon">
+                        🚀
+                    </span>
+
+                    <div class="ship-flame"></div>
+
+                </div>
+
+
+
+                <!-- DESTINATION -->
+
+                <div
+                    class="destination"
+                    id="destination"
+                >
+
+                    <div class="destination-ring"></div>
+
+                    <span>
+                        🪐
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUESTION
+                 ================================================= -->
+
+            <div class="question-box">
+
+                <div class="question-label">
+
+                    MISSION QUESTION
+
+                </div>
+
+
+                <p id="question">
+
+                    Question goes here
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ANSWERS
+                 ================================================= -->
+
+            <div
+                class="options"
+                id="options"
+            >
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EXPLANATION
+                 ================================================= -->
+
+            <div
+                id="explanation"
+                class="explanation"
+            >
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NEXT BUTTON
+                 ================================================= -->
+
+            <button
+                id="nextButton"
+                class="next-button"
+                onclick="nextQuestion()"
+            >
+
+                NEXT MISSION
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESULT SCREEN
+             ================================================= -->
+
+        <section
+            id="resultScreen"
+            class="screen"
+        >
+
+            <div class="result-box">
+
+
+                <p class="eyebrow">
+
+                    MISSION REPORT
+
+                </p>
+
+
+                <div class="result-icon">
+
+                    🏆
+
+                </div>
+
+
+                <h1 id="resultTitle">
+
+                    MISSION COMPLETE
+
+                </h1>
+
+
+                <p class="captain-text">
+
+                    Captain
+
+                    <strong id="finalName">
+                        --
+                    </strong>
+
+                </p>
+
+
+
+                <!-- FINAL SCORE -->
+
+                <div class="final-score">
+
+                    <span>
+
+                        FINAL SCORE
+
+                    </span>
+
+
+                    <strong id="finalScore">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- RESULT DETAILS -->
+
+                <div class="result-details">
+
+
+                    <div>
+
+                        <span>
+                            QUESTIONS
+                        </span>
+
+                        <strong id="totalQuestions">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            CORRECT
+                        </span>
+
+                        <strong id="correctAnswers">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            ACCURACY
+                        </span>
+
+                        <strong id="accuracy">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- RANK -->
+
+                <h2 id="rank">
+
+                    SPACE CADET
+
+                </h2>
+
+
+                <p id="resultMessage">
+
+                </p>
+
+
+                <button
+                    class="main-button"
+                    onclick="restartGame()"
+                >
+
+                    PLAY AGAIN
+
+                    <span>
+                        🚀
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
