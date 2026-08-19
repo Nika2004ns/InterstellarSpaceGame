@@ -1,648 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <meta name="description" content="Embark on an interstellar knowledge mission. Test your knowledge of Earth, astronomy, planets, black holes, space and the universe.">
+    <meta name="theme-color" content="#03050c">
+    <title>NIKAS | Interstellar Space Quest — Space &amp; Astronomy Quiz</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NIKAS | Interstellar Space Quest">
+    <meta property="og:description" content="Humanity's Final Knowledge Mission. Test your knowledge of Earth, astronomy, black holes and interstellar science.">
+    <meta property="og:site_name" content="NIKAS">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NIKAS | Interstellar Space Quest">
+    <meta name="twitter:description" content="Humanity's Final Knowledge Mission — an interstellar space & astronomy quiz.">
 
-    <meta
-        name="description"
-        content="NIKAS Interstellar Space Quest - Space and Astronomy Quiz"
-    >
+    <!-- Favicon (inline rocket, no external asset needed) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2303050c'/%3E%3Ctext x='50' y='66' font-size='58' text-anchor='middle'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E">
 
-    <title>
-        NIKAS | Interstellar Space Quest
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <!-- Font & basic styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
-
 <body>
-
-    <!-- =====================================================
-         CINEMATIC SPACE BACKGROUND
-         ===================================================== -->
-
-    <canvas id="spaceCanvas"></canvas>
-
-
-    <!-- REAL NASA / SPACE IMAGERY -->
-
-    <div class="real-space-layer">
-
-        <!-- NASA / ESA / CSA / STScI JWST Carina Nebula -->
-        <div class="space-image nebula-image"></div>
-
-        <!-- NASA Earth -->
-        <div class="space-image earth-image"></div>
-
-        <!-- Deep-space image -->
-        <div class="space-image galaxy-image"></div>
-
-        <!-- Saturn -->
-        <div class="space-image saturn-image"></div>
-
+    <!-- LOADING SCREEN -->
+    <div id="loader" role="status" aria-live="polite">
+        <div class="loader-brand">NIKAS<span>INTERSTELLAR SPACE QUEST</span></div>
+        <div class="loader-status">INITIALIZING MISSION...</div>
+        <div class="loader-progress"><div class="loader-progress-bar" id="loaderBar"></div></div>
+        <div class="loader-percent" id="loaderPercent">0%</div>
+        <div class="loader-items">
+            <div>STAR MAP <span class="online">............. ONLINE</span></div>
+            <div>NAVIGATION <span class="online">........... ONLINE</span></div>
+            <div>LIFE SUPPORT <span class="online">......... ONLINE</span></div>
+            <div>QUANTUM DRIVE <span class="online">........ ONLINE</span></div>
+            <div>SPACECRAFT <span class="online">........... READY</span></div>
+        </div>
+        <div style="margin-top:2rem; font-size:0.7rem; color:var(--green); opacity:0;">MISSION READY</div>
     </div>
 
-
-    <!-- =====================================================
-         CINEMATIC BLACK HOLE
-         ===================================================== -->
-
-    <div class="cinematic-blackhole">
-
-        <div class="blackhole-glow"></div>
-
-        <div class="blackhole-ring"></div>
-
-        <div class="blackhole-core"></div>
-
-    </div>
-
-
-    <!-- =====================================================
-         WORMHOLE
-         ===================================================== -->
-
-    <div class="wormhole">
-
-        <div class="wormhole-ring ring-1"></div>
-
-        <div class="wormhole-ring ring-2"></div>
-
-        <div class="wormhole-ring ring-3"></div>
-
-    </div>
-
-
-    <!-- ATMOSPHERE -->
-
-    <div class="nebula nebula-1"></div>
-
-    <div class="nebula nebula-2"></div>
-
-    <div class="nebula nebula-3"></div>
-
-    <div class="sun-glow"></div>
-
-    <div class="vignette"></div>
-
-    <div class="grain"></div>
-
-
-    <!-- IMAGE CREDIT -->
-
-    <div class="photo-credit">
-
-        Space imagery:
-        NASA / ESA / CSA / STScI /
-        NASA-JPL-Caltech /
-        Space Science Institute
-
-    </div>
-
-
-    <!-- =====================================================
-         GAME
-         ===================================================== -->
-
-    <main class="game">
-
-
-        <!-- =================================================
-             HEADER
-             ================================================= -->
-
-        <header class="header">
-
-            <div class="logo">
-
-                NIKAS
-
-                <span>
-                    INTERSTELLAR SPACE QUEST
-                </span>
-
-            </div>
-
-
-            <div class="mission">
-
-                MISSION
-
-                <b id="missionNo">
-                    01
-                </b>
-
-            </div>
-
-        </header>
-
-
-
-        <!-- =================================================
-             START SCREEN
-             ================================================= -->
-
-        <section
-            id="startScreen"
-            class="screen active"
-        >
-
-            <div class="start-box">
-
-                <div class="space-icon">
-                    🚀
-                </div>
-
-
-                <p class="eyebrow">
-
-                    HUMANITY'S FINAL
-                    KNOWLEDGE MISSION
-
-                </p>
-
-
-                <h1>
-
-                    INTERSTELLAR
-
-                    <span>
-                        SPACE QUEST
-                    </span>
-
-                </h1>
-
-
-                <p class="intro">
-
-                    Earth is running out of time.
-
-                    Humanity needs a new home.
-
-                    You are the Captain of an
-                    interstellar mission.
-
-                    Test your knowledge of Earth,
-                    planets, astronomy, black holes
-                    and the universe.
-
-                </p>
-
-
-                <div class="mission-info">
-
-                    <div>
-                        🌍
-                        <span>EARTH</span>
-                    </div>
-
-                    <div>
-                        🪐
-                        <span>SPACE</span>
-                    </div>
-
-                    <div>
-                        🕳️
-                        <span>BLACK HOLES</span>
-                    </div>
-
-                    <div>
-                        🌀
-                        <span>INTERSTELLAR</span>
-                    </div>
-
-                </div>
-
-
-                <input
-                    type="text"
-                    id="playerName"
-                    placeholder="ENTER CAPTAIN NAME"
-                    maxlength="20"
-                    autocomplete="off"
-                >
-
-
-                <button
-                    class="main-button"
-                    onclick="startGame()"
-                >
-
-                    BEGIN MISSION
-
-                    <span>
-                        🚀
-                    </span>
-
-                </button>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             QUIZ SCREEN
-             ================================================= -->
-
-        <section
-            id="quizScreen"
-            class="screen"
-        >
-
-
-            <!-- TOP INFORMATION -->
-
-            <div class="quiz-top">
-
-                <div>
-
-                    <p
-                        class="category"
-                        id="category"
-                    >
-                        EARTH
-                    </p>
-
-
-                    <h2 id="questionNumber">
-
-                        QUESTION 01
-
-                    </h2>
-
-                </div>
-
-
-                <div class="stats">
-
-
-                    <div class="stat">
-
-                        <span>
-                            SCORE
-                        </span>
-
-                        <strong id="score">
-                            0
-                        </strong>
-
-                    </div>
-
-
-                    <div class="stat">
-
-                        <span>
-                            LIVES
-                        </span>
-
-                        <strong id="lives">
-                            ❤️❤️❤️
-                        </strong>
-
-                    </div>
-
-
-                    <div class="stat timer-stat">
-
-                        <span>
-                            TIME
-                        </span>
-
-                        <strong id="timer">
-                            15
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- PROGRESS -->
-
-            <div class="progress-container">
-
-                <div id="progressBar"></div>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 SPACECRAFT JOURNEY
-                 ================================================= -->
-
-            <div class="space">
-
-
-                <div class="space-stars"></div>
-
-
-                <!-- EARTH -->
-
-                <div
-                    class="earth"
-                    id="earth"
-                >
-
-                    <div class="earth-globe"></div>
-
-                    <div class="globe-shading"></div>
-
-                    <div class="moon-orbit">
-
-                        <div class="moon"></div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- SPACECRAFT -->
-
-                <div
-                    class="ship"
-                    id="ship"
-                >
-
-                    <div class="ship-trail"></div>
-
-                    <span class="ship-icon">
-                        🚀
-                    </span>
-
-                    <div class="ship-flame"></div>
-
-                </div>
-
-
-
-                <!-- DESTINATION -->
-
-                <div
-                    class="destination"
-                    id="destination"
-                >
-
-                    <div class="destination-ring"></div>
-
-                    <span>
-                        🪐
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- =================================================
-                 QUESTION
-                 ================================================= -->
-
-            <div class="question-box">
-
-                <div class="question-label">
-
-                    MISSION QUESTION
-
-                </div>
-
-
-                <p id="question">
-
-                    Question goes here
-
-                </p>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 ANSWERS
-                 ================================================= -->
-
-            <div
-                class="options"
-                id="options"
-            >
-
-            </div>
-
-
-
-            <!-- =================================================
-                 EXPLANATION
-                 ================================================= -->
-
-            <div
-                id="explanation"
-                class="explanation"
-            >
-
-            </div>
-
-
-
-            <!-- =================================================
-                 NEXT BUTTON
-                 ================================================= -->
-
-            <button
-                id="nextButton"
-                class="next-button"
-                onclick="nextQuestion()"
-            >
-
-                NEXT MISSION
-
-                <span>
-                    →
-                </span>
-
+    <!-- NAVIGATION -->
+    <nav class="nav" aria-label="Main navigation">
+        <div class="nav-logo">NIKAS<small>INTERSTELLAR</small></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="active" data-section="hero">HOME</a></li>
+            <li><a href="#" data-section="quiz">MISSIONS</a></li>
+            <li><a href="#" data-section="reels">SPACE REELS</a></li>
+            <li><a href="#" data-section="science">SCIENCE</a></li>
+            <li><a href="#" data-section="leaderboard">LEADERBOARD</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false" aria-label="Toggle sound effects">
+                <span class="sound-icon" aria-hidden="true">🔇</span><span class="sound-label">SOUND</span>
             </button>
+            <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
 
-
-        </section>
-
-
-
-        <!-- =================================================
-             RESULT SCREEN
-             ================================================= -->
-
-        <section
-            id="resultScreen"
-            class="screen"
-        >
-
-            <div class="result-box">
-
-
-                <p class="eyebrow">
-
-                    MISSION REPORT
-
-                </p>
-
-
-                <div class="result-icon">
-
-                    🏆
-
+    <!-- APP -->
+    <div class="app">
+        <!-- HERO -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <div class="hero-badge">HUMANITY'S FINAL KNOWLEDGE MISSION</div>
+                <h1>INTERSTELLAR <span>SPACE QUEST</span></h1>
+                <p>Earth is running out of time. Humanity needs a new home. Test your knowledge and navigate humanity beyond the stars.</p>
+                <div class="hero-meta">
+                    <div><strong>21</strong> MISSIONS</div>
+                    <div><strong>🌌</strong> SPACE</div>
+                    <div><strong>🪐</strong> ASTRONOMY</div>
+                    <div><strong>🕳️</strong> BLACK HOLES</div>
+                    <div><strong>🌀</strong> INTERSTELLAR</div>
                 </div>
-
-
-                <h1 id="resultTitle">
-
-                    MISSION COMPLETE
-
-                </h1>
-
-
-                <p class="captain-text">
-
-                    Captain
-
-                    <strong id="finalName">
-                        --
-                    </strong>
-
-                </p>
-
-
-
-                <!-- FINAL SCORE -->
-
-                <div class="final-score">
-
-                    <span>
-
-                        FINAL SCORE
-
-                    </span>
-
-
-                    <strong id="finalScore">
-
-                        0
-
-                    </strong>
-
-                </div>
-
-
-
-                <!-- RESULT DETAILS -->
-
-                <div class="result-details">
-
-
-                    <div>
-
-                        <span>
-                            QUESTIONS
-                        </span>
-
-                        <strong id="totalQuestions">
-                            0
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <span>
-                            CORRECT
-                        </span>
-
-                        <strong id="correctAnswers">
-                            0
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <span>
-                            ACCURACY
-                        </span>
-
-                        <strong id="accuracy">
-                            0%
-                        </strong>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- RANK -->
-
-                <h2 id="rank">
-
-                    SPACE CADET
-
-                </h2>
-
-
-                <p id="resultMessage">
-
-                </p>
-
-
-                <button
-                    class="main-button"
-                    onclick="restartGame()"
-                >
-
-                    PLAY AGAIN
-
-                    <span>
-                        🚀
-                    </span>
-
-                </button>
-
-
+                <button class="btn-main" id="beginMissionBtn">BEGIN MISSION →</button>
             </div>
-
         </section>
 
+        <!-- QUIZ CONTAINER (dynamic) -->
+        <section id="quizSection" class="section">
+            <div class="section-title">MISSION CONTROL <small>interactive quiz</small></div>
+            <div id="quizContainer" class="quiz-container">
+                <!-- start screen inside quiz container -->
+                <div id="startScreen" class="start-box" style="text-align:center; padding:1.5rem 0;">
+                    <div style="font-size:3rem; margin-bottom:0.5rem;">🚀</div>
+                    <h2 style="font-weight:300; letter-spacing:0.1em;">ENTER CAPTAIN NAME</h2>
+                    <input type="text" id="playerName" placeholder="CAPTAIN NAME" maxlength="20" autocomplete="off" aria-label="Captain name" style="display:block; width:260px; max-width:100%; margin:1rem auto; padding:0.8rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:#fff; text-align:center; border-radius:6px;">
+                    <button class="btn-main" id="startGameBtn" style="font-size:0.7rem;">BEGIN MISSION</button>
+                    <div id="profileStats" class="profile-stats hidden" aria-live="polite">
+                        <div class="profile-stat"><span class="label">BEST SCORE</span><span class="val" id="profBestScore">0</span></div>
+                        <div class="profile-stat"><span class="label">BEST ACCURACY</span><span class="val" id="profBestAcc">0%</span></div>
+                        <div class="profile-stat"><span class="label">MISSIONS PLAYED</span><span class="val" id="profMissions">0</span></div>
+                        <div class="profile-stat"><span class="label">HIGHEST RANK</span><span class="val" id="profRank">—</span></div>
+                    </div>
+                </div>
+                <!-- quiz screen (hidden) -->
+                <div id="quizScreen" class="hidden">
+                    <div class="quiz-hud">
+                        <div class="hud-left">
+                            <span class="category" id="categoryDisplay">EARTH</span>
+                            <span class="mission-id" id="missionNoDisplay">MISSION 01</span>
+                        </div>
+                        <div class="hud-right">
+                            <div class="hud-stat"><span class="label">SCORE</span><div class="value" id="scoreDisplay">0</div></div>
+                            <div class="hud-stat"><span class="label">LIVES</span><div class="value" id="livesDisplay">❤️❤️❤️</div></div>
+                            <div class="timer-ring">
+                                <svg viewBox="0 0 48 48" width="48" height="48">
+                                    <circle cx="24" cy="24" r="20" stroke-width="4" stroke="rgba(255,255,255,0.06)" fill="none"/>
+                                    <circle class="progress-ring" cx="24" cy="24" r="20" id="timerRing" stroke-width="4" stroke="var(--green)" fill="none"/>
+                                </svg>
+                                <div class="time-text" id="timerText">15</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-text" id="questionText">Loading question...</div>
+                    <div class="options-grid" id="optionsContainer"></div>
+                    <div class="explanation-box" id="explanationBox"></div>
+                    <button class="next-btn" id="nextBtn">NEXT MISSION →</button>
+                </div>
+                <!-- result screen (hidden) -->
+                <div id="resultScreen" class="hidden result-panel">
+                    <div class="hero-badge" style="border-color:var(--green);">MISSION REPORT</div>
+                    <h2 id="resultTitle" style="font-weight:300; letter-spacing:0.05em;">MISSION COMPLETE</h2>
+                    <p style="color:var(--muted);">Captain <strong id="finalName">—</strong></p>
+                    <div class="circular-acc" id="accuracyRingContainer">
+                        <svg viewBox="0 0 100 100" width="100" height="100">
+                            <circle class="bg" cx="50" cy="50" r="45" />
+                            <circle class="progress" cx="50" cy="50" r="45" id="accuracyArc" stroke="var(--green)" />
+                        </svg>
+                        <div class="center-text" id="accuracyPercent">0%</div>
+                    </div>
+                    <div class="result-stats">
+                        <div><span class="label">SCORE</span><div class="val" id="finalScore">0</div></div>
+                        <div><span class="label">CORRECT</span><div class="val" id="finalCorrect">0/21</div></div>
+                        <div><span class="label">RANK</span><div class="val" id="finalRank">CADET</div></div>
+                    </div>
+                    <p id="resultMessage" style="color:var(--muted); max-width:400px; margin:0.5rem auto 1.5rem;"></p>
+                    <button class="btn-main" id="restartBtn" style="font-size:0.7rem;">PLAY AGAIN</button>
+                </div>
+            </div>
+        </section>
 
-    </main>
+        <!-- SPACE REELS -->
+        <section id="reels" class="section">
+            <div class="section-title">SPACE REELS <small>cinematic gallery</small></div>
+            <div class="reels-track">
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Black%20hole%20-%20Messier%2087%20crop%20max%20res.jpg?width=500" alt="First direct image of a black hole, M87, by the Event Horizon Telescope" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>BLACK HOLES</h4><p>Event horizon &amp; beyond</p></div></div>
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wormhole%20travel%20as%20envisioned%20by%20Les%20Bossinas%20for%20NASA.jpg?width=500" alt="NASA concept illustration of wormhole travel" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>WORMHOLES</h4><p>Interstellar shortcuts</p></div></div>
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Spacetime%20curvature.png?width=500" alt="Illustration of spacetime curvature around a massive body" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>TIME DILATION</h4><p>Gravity warps time</p></div></div>
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Black%20hole%20quasar%20NASA.jpg?width=500" alt="NASA artist concept of a black hole accretion disk" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>MASSIVE BLACK HOLE</h4><p>Simulated accretion disk</p></div></div>
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Saturn%20during%20Equinox.jpg?width=500" alt="Saturn photographed by the Cassini spacecraft" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>SATURN</h4><p>Ringed giant</p></div></div>
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/The%20Earth%20seen%20from%20Apollo%2017.jpg?width=500" alt="The Blue Marble — Earth photographed from Apollo 17" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>EARTH FROM SPACE</h4><p>Our pale blue dot</p></div></div>
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Andromeda%20Galaxy%20(with%20h-alpha).jpg?width=500" alt="The Andromeda Galaxy" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>GALAXIES</h4><p>Island universes</p></div></div>
+                <div class="reel-card"><div class="reel-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pillars%20of%20creation%202014%20HST%20WFC3-UVIS%20full-res.jpg?width=500" alt="The Pillars of Creation in the Eagle Nebula, photographed by Hubble" loading="lazy" onerror="this.closest('.reel-image').classList.add('img-fallback')"><div class="reel-play" aria-hidden="true">▶</div></div><div class="reel-info"><h4>NEBULAS</h4><p>Star nurseries</p></div></div>
+            </div>
+        </section>
 
+        <!-- SCIENCE -->
+        <section id="science" class="section">
+            <div class="section-title">THE SCIENCE BEHIND INTERSTELLAR <small>explore</small></div>
+            <div class="science-grid">
+                <div class="science-card"><div class="science-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Black%20hole%20-%20Messier%2087%20crop%20max%20res.jpg?width=420" alt="Image of a black hole" loading="lazy"></div><h4>🕳️ BLACK HOLES</h4><p>Regions of extreme gravity where nothing escapes.</p><button class="btn-explore">EXPLORE →</button></div>
+                <div class="science-card"><div class="science-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wormhole%20travel%20as%20envisioned%20by%20Les%20Bossinas%20for%20NASA.jpg?width=420" alt="Illustration of a wormhole" loading="lazy"></div><h4>🌀 WORMHOLES</h4><p>Theoretical tunnels through spacetime.</p><button class="btn-explore">EXPLORE →</button></div>
+                <div class="science-card"><div class="science-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Spacetime%20curvature.png?width=420" alt="Illustration of gravitational time dilation" loading="lazy"></div><h4>⏳ TIME DILATION</h4><p>Time passes slower near massive objects.</p><button class="btn-explore">EXPLORE →</button></div>
+                <div class="science-card"><div class="science-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/One-sided%20spacetime%20curvatures.png?width=420" alt="Illustration of spacetime curvature from mass" loading="lazy"></div><h4>🌌 GRAVITY</h4><p>The curvature of spacetime by mass.</p><button class="btn-explore">EXPLORE →</button></div>
+                <div class="science-card"><div class="science-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Spacetime%20curvature.png?width=420" alt="Illustration of relativity and spacetime" loading="lazy"></div><h4>⚡ RELATIVITY</h4><p>Einstein's revolutionary framework.</p><button class="btn-explore">EXPLORE →</button></div>
+                <div class="science-card"><div class="science-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kepler-452b%20artist%20concept.jpg?width=420" alt="Artist concept of an exoplanet" loading="lazy"></div><h4>🪐 EXOPLANETS</h4><p>Worlds beyond our solar system.</p><button class="btn-explore">EXPLORE →</button></div>
+            </div>
+        </section>
 
+        <!-- MISSION MAP -->
+        <section id="missionMap" class="section">
+            <div class="section-title">MISSION MAP <small>progression</small></div>
+            <div class="map-container" id="mapContainer">
+                <!-- nodes injected by js -->
+            </div>
+        </section>
 
-    <!-- =====================================================
-         JAVASCRIPT
-         ===================================================== -->
+        <!-- LEADERBOARD (placeholder) -->
+        <section id="leaderboard" class="section">
+            <div class="section-title">MISSION LEADERBOARD <small>top captains</small></div>
+            <div style="background:rgba(255,255,255,0.02); border-radius:16px; padding:1.5rem; border:1px solid rgba(255,255,255,0.04);">
+                <div id="leaderboardList" style="font-size:0.9rem; display:flex; flex-direction:column; gap:0.4rem; color:var(--muted);">
+                    <div>01  CAPTAIN ALEX      2450</div>
+                    <div>02  CAPTAIN NIKAS     2310</div>
+                    <div>03  CAPTAIN JOHN      2190</div>
+                    <div>04  CAPTAIN ARUN      2050</div>
+                </div>
+                <p style="font-size:0.6rem; color:var(--muted); margin-top:1rem;">local storage enabled • top scores saved</p>
+            </div>
+        </section>
 
-    <script src="script.js"></script>
+        <div class="footer-credit">NIKAS • INTERSTELLAR SPACE QUEST • SPACE IMAGERY: NASA / ESA</div>
+    </div>
 
+    <!-- CANVAS (background) -->
+    <canvas id="spaceCanvas"></canvas>
+    <script src="script.js" defer></script>
 </body>
-
 </html>
